@@ -4,16 +4,16 @@ import glob
 from matplotlib import pyplot as plt
 
 
-for img in glob.glob('C:/Users/User/PycharmProjects/pyProjects/AgroResearch/Normal_L/*.jpg'):
+for img in glob.glob('C:/Users/User/PycharmProjects/researchP/Normal_L/*.jpg'):
     imgRead = cv2.imread(img, 1)
 
     cv2.namedWindow('resized_w01', cv2.WINDOW_NORMAL)
-    cv2.resizeWindow('resized_w01', 400, 750)
+    cv2.resizeWindow('resized_w01', 400, 550)
 
     z = imgRead.reshape((-1, 3))
     z = np.float32(z)
 
-    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
+    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 10.0)
     K = 4
     ret, label, center = cv2.kmeans(z, K, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
 
@@ -67,13 +67,21 @@ for img in glob.glob('C:/Users/User/PycharmProjects/pyProjects/AgroResearch/Norm
 
         print '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'
 
-        cv2.imshow('resized_w01', bit_andImg)
-        cv2.waitKey(5000)
-        cv2.destroyAllWindows()
-
+     #   cv2.imshow('resized_w01', bit_andImg)
+     #   cv2.waitKey(5000)
+     #   cv2.destroyAllWindows()
+     #
       #  print approx
       #  print '**************************************'
 
+    # Show-image
+    numpy_horizontl = np.hstack((imgRead, bit_andImg))
+    numpy_horizontl_conct = np.concatenate((imgRead, bit_andImg), axis=1)
+     
 
+    cv2.namedWindow('resized_w01', cv2.WINDOW_NORMAL)
+    cv2.resizeWindow('resized_w01', 800, 550)
 
-
+    cv2.imshow('resized_w01', numpy_horizontl_conct)
+    cv2.waitKey(5000)
+    cv2.destroyAllWindows()
